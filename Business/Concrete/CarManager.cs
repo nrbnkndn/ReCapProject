@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,44 +19,58 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
            if(car.Descriptions.Length>2 || car.DailyPrice >0)
             {
                 _carDal.Add(car);
             }
-           
+           else
+            {
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
+            return new SuccessResult( Messages.CarAdded);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Messages.CarDeleted);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
             //iş kodları
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<Car> GetById(int carId)
         {
-            return _carDal.GetAll(p => p.BrandId == brandId);
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.CarId == carId));
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll(p => p.ColorId == colorId);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId));
         }
 
-        public List<JoinDto> GetJoinDto()
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return _carDal.GetJoinDto();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId));
         }
 
-        public void Update(Car car)
+        public IDataResult<List<JoinDto>> GetJoinDto()
+        {
+            return new SuccessDataResult<List<JoinDto>>(_carDal.GetJoinDto());
+        }
+
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);  //result ıresult referansı bu yüzden kızmaz
+            //constructor içindeki sonuçlar dönebilsin diye yapıyoruz bunu. 
+            // Result result = new Result(); diyebilirz. ancak constructor sayesinde işler kolaylaşacak
+
         }
     }
 }
