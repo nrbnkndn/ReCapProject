@@ -1,10 +1,10 @@
-﻿using Entities.Abstract;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess
 {
     // T için referans tip class olabilir ancak diyoruz. artık int,string gelemez T yerine. 
     //Ayrıca T IEntity ya da ondan implemente olan nesne olabilir diyoruz.

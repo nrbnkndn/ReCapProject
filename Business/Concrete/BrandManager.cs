@@ -16,9 +16,29 @@ namespace Business.Concrete
             _brands = brands;
         }
 
+        public void Add(Brand brand)
+        {
+            _brands.Add(brand);
+        }
+
+        public void Delete(Brand brand)
+        {
+            _brands.Delete(brand);
+        }
+
         public List<Brand> GetAll()
         {
             return _brands.GetAll();
+        }
+
+        public Brand GetById(int brandId)
+        {
+            return _brands.Get(p => p.BrandId == brandId);
+        }
+
+        public void Update(Brand brand)
+        {
+            _brands.Update(brand);
         }
     }
 }
