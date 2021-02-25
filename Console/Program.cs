@@ -10,33 +10,23 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("**************CAR*****************");
-            //BRAND********************************************
-            //CAR*********************************
-            CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetJoinDto().Data)
+            //carTest();
+            //brandTest();
+            //brandGetByID(1);
+
+            RentalManager rentals = new RentalManager(new EfRentalDal());
+            rentals.Add(new Rental { rentDate = new DateTime(2021,02,24),  carId = 4, customerId = 2 });
+            
+            foreach (var rental in rentals.GetAll().Data)
             {
-                Console.WriteLine(car.CarId + " " 
-                    + car.DailyPrice + " " 
-                    + car.Descriptions + " " 
-                    + car.ColorName + " " 
-                    + car.BrandName);
+                Console.WriteLine("RentalID: {0} - RentDate: {1} - ReturnDate: {2} - CarID: {3} - CustomerId: {4}" ,
+                     rental.rentalID, rental.rentDate, rental.ReturnDate, rental.carId, rental.customerId);
             }
 
-            Console.WriteLine("--------------------");
-            //carAdd(carManager);
-            //carDelete(carManager);
-            //carUpdate(carManager);
-            //getCarsByBrandIdTest(carManager);
-            //getCarsByColorIdTest(carManager);
+        }
 
-            Console.WriteLine("--------------------");
-
-            foreach (var car in carManager.GetAll().Data)
-            {
-                Console.WriteLine(car.BrandId + " " + car.CarId + " " + car.ColorId + " " + car.DailyPrice + " " + car.Descriptions + " " + car.ModelYear);
-            }
-            Console.WriteLine("*******************************");
+        private static void brandTest()
+        {
             Console.WriteLine("***************BRAND****************");
             //BRAND********************************************
 
@@ -55,17 +45,36 @@ namespace ConsoleUI
             {
                 Console.WriteLine(brand.BrandId + " " + brand.BrandName);
             }
+        }
 
-            brandGetByID(1);
+        private static void carTest()
+        {
+            Console.WriteLine("**************CAR*****************");
+            //BRAND********************************************
+            //CAR*********************************
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetJoinDto().Data)
+            {
+                Console.WriteLine(car.CarId + " "
+                    + car.DailyPrice + " "
+                    + car.Descriptions + " "
+                    + car.ColorName + " "
+                    + car.BrandName);
+            }
 
-            Console.WriteLine("*******************************");
-            Console.WriteLine("************COLOR*******************");
-            //COLOR********************************************
+            Console.WriteLine("--------------------");
+            //carAdd(carManager);
+            //carDelete(carManager);
+            //carUpdate(carManager);
+            //getCarsByBrandIdTest(carManager);
+            //getCarsByColorIdTest(carManager);
 
+            Console.WriteLine("--------------------");
 
-
-
-
+            foreach (var car in carManager.GetAll().Data)
+            {
+                Console.WriteLine(car.BrandId + " " + car.CarId + " " + car.ColorId + " " + car.DailyPrice + " " + car.Descriptions + " " + car.ModelYear);
+            }
         }
 
         private static void brandGetByID(int brandId)
