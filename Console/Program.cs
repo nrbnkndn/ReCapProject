@@ -125,7 +125,7 @@ namespace ConsoleUI
                 ColorId = 2,
                 DailyPrice = 345,
                 Descriptions = "manuel araba",
-                ModelYear = "2000"
+                ModelYear = 2000
             });
         }
 
@@ -137,7 +137,7 @@ namespace ConsoleUI
                 ColorId = 2,
                 DailyPrice = 3450,
                 Descriptions = "MANUEL HATCHBACK",
-                ModelYear = "2000"
+                ModelYear = 2000
             });
         }
 
@@ -150,7 +150,7 @@ namespace ConsoleUI
                 ColorId = 2,
                 DailyPrice = 3450,
                 Descriptions = "MANUEL HATCHBACK",
-                ModelYear = "2000"
+                ModelYear = 2000
             });
         }
     }
